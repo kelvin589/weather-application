@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="208.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblCity" layoutX="14.0" layoutY="14.0" text="City">
+         <font>
+            <Font name="System Bold" size="38.0" />
+         </font></Label>
+      <Label fx:id="lblCurrentTemp" layoutX="14.0" layoutY="149.0" text="Current Temperature">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Label fx:id="lblDescription" layoutX="14.0" layoutY="61.0" text="Description">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
+      <Button fx:id="btnRefresh" layoutX="373.0" layoutY="17.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+      <ImageView fx:id="imgviewIcon" fitHeight="70.0" fitWidth="70.0" layoutX="14.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" />
+      <ComboBox fx:id="cboxCities" layoutX="289.0" layoutY="47.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
