@@ -9,6 +9,7 @@ A simple weather app created with Java
 
 ## Introduction
 This is a simple weather app created with Java and uses JavaFX for the user interface. The weather data is retrieved using the OpenWeatherMap api and deserialised, using the gson library, into a Weather object. This information is displayed on the user interface and updates accordingly when the refresh button is clicked, or the combobox setting is changed to another city.
+
 <img src="https://user-images.githubusercontent.com/72221490/96188170-35c9cb80-0f36-11eb-80d3-b7376db4123e.png" alt="Image of weather application" width="300">
 
 ## Improvements
