@@ -13,6 +13,7 @@ This is a simple weather app created with Java and uses JavaFX for the user inte
 * A refresh button to retrieve the latest data from the API
 * A combobox containing some cities. 
   * The data in the UI is changed accordingly when a different city is selected
+
 There is a limiting factor imposed due to the tiers. For example, the free tier may not be suitable for widespread use of the application (depending on the number of users) as there is a limit to the number of API calls
 <img src="https://user-images.githubusercontent.com/72221490/96188170-35c9cb80-0f36-11eb-80d3-b7376db4123e.png" alt="Image of weather application" width="300">
 
