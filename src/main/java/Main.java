@@ -4,8 +4,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Scanner;
-
+/**
+ * The main entry point into the weather program. Creates a new {@link WeatherData} to keep track
+ * of the data. This is used for the {@link WeatherController} and the controller is linked to the UI
+ * then the stage is shown.
+ */
 public class Main extends Application {
 
     @Override

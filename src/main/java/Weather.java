@@ -1,5 +1,8 @@
 import java.util.List;
 
+/**
+ * An object to hold information retrieved from the weather API
+ */
 public class Weather {
     WeatherCoord coord;
     List<WeatherWeatherItems> weather;

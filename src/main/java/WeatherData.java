@@ -1,6 +1,9 @@
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Acts as the model for the user interface
+ */
 public class WeatherData {
     private final String API_KEY = "ac4a0f1b15bf8f3aa7e4106d8784d837";
     private String locationID;
@@ -11,12 +14,20 @@ public class WeatherData {
     private final StringProperty iconID = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
 
+    /**
+     * Set the location id and create a new {@link WeatherParser} to get the data
+     * @param locationID the location id for the location of weather
+     */
     public WeatherData(String locationID) {
         this.locationID = locationID;
         wp = new WeatherParser(API_KEY, locationID);
         getData();
     }
 
+    /**
+     * Get the {@link Weather} object from the {@link WeatherParser} and use it to set
+     * the various variables in this object
+     */
     public void getData() {
         Weather weather = wp.getWeather();
 
@@ -26,11 +37,17 @@ public class WeatherData {
         this.setDescription(weather.weather.get(0).description);
     }
 
+    /**
+     * Set the {@code locationID}
+     * @param id the location id to change to
+     */
     public void setLocationID(String id) {
         wp.setLocationID(id);
-        getData();
     }
 
+    //********************
+    // Various get methods for the variables
+    //********************
     public String getLocationID() {
         return this.locationID;
     }
@@ -83,6 +100,10 @@ public class WeatherData {
         this.description.set(description);
     }
 
+    /**
+     * The string representation of the data
+     * @return a string representation of the data
+     */
     @Override
     public String toString() {
         return "City: " + getCity() + "\n" +
