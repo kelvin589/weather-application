@@ -20,6 +20,7 @@ public class WeatherData {
     private final StringProperty visibility = new SimpleStringProperty();
     private final StringProperty sunrise = new SimpleStringProperty();
     private final StringProperty sunset = new SimpleStringProperty();
+    private final StringProperty currentDateTime = new SimpleStringProperty();
 
     /**
      * Set the location id and create a new {@link WeatherParser} to get the data
@@ -48,7 +49,9 @@ public class WeatherData {
         this.setHumidity("Humidity: " + Math.round(weather.main.humidity) + "%");
         this.setVisibility("Visibility: " + weather.visibility/1000 + "km");
         this.setSunrise("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunrise, 0, weather.timezone));
-        this.setSunset("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunset, 0, weather.timezone)); }
+        this.setSunset("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunset, 0, weather.timezone));
+        this.setCurrentDateTime(TimeKeeper.currentTime());
+    }
 
     /**
      * Set the {@code locationID}
@@ -173,13 +176,26 @@ public class WeatherData {
         this.sunrise.set(sunrise);
     }
 
+    public String getCurrentDateTime() {
+        return currentDateTime.get();
+    }
+
+    public StringProperty currentDateTimeProperty() {
+        return currentDateTime;
+    }
+
+    public void setCurrentDateTime(String currentDateTime) {
+        this.currentDateTime.set(currentDateTime);
+    }
+
     /**
      * The string representation of the data
      * @return a string representation of the data
      */
     @Override
     public String toString() {
-        return "City: " + getCity() + "\n" +
+        return  getCurrentDateTime() + "\n" +
+                "City: " + getCity() + "\n" +
                 "Current Temperature: " + getCurrTemp() + "\n" +
                 "Icon ID:" + getIconID() + "\n" +
                 "Description: " + getDescription() + "\n" +

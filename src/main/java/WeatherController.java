@@ -19,6 +19,7 @@ public class WeatherController {
     @FXML private Label lblVisibility;
     @FXML private Label lblSunrise;
     @FXML private Label lblSunset;
+    @FXML private Label lblDateTime;
 
     private WeatherData model;
 
@@ -46,6 +47,7 @@ public class WeatherController {
         lblVisibility.textProperty().bindBidirectional(model.visibilityProperty());
         lblSunrise.textProperty().bindBidirectional(model.sunriseProperty());
         lblSunset.textProperty().bindBidirectional(model.sunsetProperty());
+        lblDateTime.textProperty().bindBidirectional(model.currentDateTimeProperty());
         imgviewIcon.setImage(new Image("http://openweathermap.org/img/w/" + model.getIconID() + ".png"));
 
         cboxCities.getItems().add("Birmingham");

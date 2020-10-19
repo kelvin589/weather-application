@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
  * Keeps track of time
  */
 public class TimeKeeper {
+    private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter HH_MM_DD_MM = DateTimeFormatter.ofPattern("HH:mm, E dd MMMM");
 
     /**
      * Get the string representation of an epoch time in the format HH:mm
@@ -16,7 +18,15 @@ public class TimeKeeper {
      */
     public static String epochToDateTime(long epoch, int nanoOfSecond, int offset) {
         LocalDateTime time = LocalDateTime.ofEpochSecond(epoch, nanoOfSecond, ZoneOffset.ofTotalSeconds(offset));
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
-        return time.format(timeFormat);
+        return time.format(HH_MM);
+    }
+
+    /**
+     * Get the current time in a string format
+     * @return the String representation of the current time
+     */
+    public static String currentTime() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return currentDateTime.format(HH_MM_DD_MM);
     }
 }
