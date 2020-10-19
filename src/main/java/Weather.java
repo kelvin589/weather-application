@@ -13,7 +13,7 @@ public class Weather {
     WeatherClouds clouds;
     String dt;
     WeatherSys sys;
-    String timezone;
+    int timezone;
     String id;
     String name;
     String cod;
@@ -53,7 +53,7 @@ public class Weather {
         String id;
         String message;
         String country;
-        String sunrise;
-        String sunset;
+        long sunrise;
+        long sunset;
     }
 }

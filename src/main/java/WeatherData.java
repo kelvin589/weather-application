@@ -1,6 +1,8 @@
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.sql.Time;
+
 /**
  * Acts as the model for the user interface
  */
@@ -16,6 +18,8 @@ public class WeatherData {
     private final StringProperty pressure = new SimpleStringProperty();
     private final StringProperty humidity = new SimpleStringProperty();
     private final StringProperty visibility = new SimpleStringProperty();
+    private final StringProperty sunrise = new SimpleStringProperty();
+    private final StringProperty sunset = new SimpleStringProperty();
 
     /**
      * Set the location id and create a new {@link WeatherParser} to get the data
@@ -43,8 +47,8 @@ public class WeatherData {
         this.setPressure("Pressure: " + Math.round(weather.main.pressure) + "hPa");
         this.setHumidity("Humidity: " + Math.round(weather.main.humidity) + "%");
         this.setVisibility("Visibility: " + weather.visibility/1000 + "km");
-
-    }
+        this.setSunrise("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunrise, 0, weather.timezone));
+        this.setSunset("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunset, 0, weather.timezone)); }
 
     /**
      * Set the {@code locationID}
@@ -145,6 +149,30 @@ public class WeatherData {
         this.visibility.set(visibility);
     }
 
+    public String getSunset() {
+        return sunset.get();
+    }
+
+    public StringProperty sunsetProperty() {
+        return sunset;
+    }
+
+    public void setSunset(String sunset) {
+        this.sunset.set(sunset);
+    }
+
+    public String getSunrise() {
+        return sunrise.get();
+    }
+
+    public StringProperty sunriseProperty() {
+        return sunrise;
+    }
+
+    public void setSunrise(String sunrise) {
+        this.sunrise.set(sunrise);
+    }
+
     /**
      * The string representation of the data
      * @return a string representation of the data
@@ -155,8 +183,11 @@ public class WeatherData {
                 "Current Temperature: " + getCurrTemp() + "\n" +
                 "Icon ID:" + getIconID() + "\n" +
                 "Description: " + getDescription() + "\n" +
-                "Pressure: " + getPressure() + "\n" +
-                "Humidity: " + getHumidity() + "\n" +
-                "Visibility: " + getVisibility();
+                getPressure() + "\n" +
+                getHumidity() + "\n" +
+                getVisibility() + "\n" +
+                getSunrise() + "\n" +
+                getSunset();
+
     }
 }
