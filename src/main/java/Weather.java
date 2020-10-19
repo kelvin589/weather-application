@@ -8,7 +8,7 @@ public class Weather {
     List<WeatherWeatherItems> weather;
     String base;
     WeatherMain main;
-    String visibility;
+    double visibility;
     WeatherWind wind;
     WeatherClouds clouds;
     String dt;
@@ -31,12 +31,12 @@ public class Weather {
     }
 
     public class WeatherMain {
-        String temp;
-        String feels_like;
-        String temp_min;
-        String temp_max;
-        String pressure;
-        String humidity;
+        double temp;
+        double feels_like;
+        double temp_min;
+        double temp_max;
+        double pressure;
+        double humidity;
     }
 
     public class WeatherWind {

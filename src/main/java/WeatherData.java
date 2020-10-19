@@ -13,6 +13,9 @@ public class WeatherData {
     private final StringProperty currTemp = new SimpleStringProperty();
     private final StringProperty iconID = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
+    private final StringProperty pressure = new SimpleStringProperty();
+    private final StringProperty humidity = new SimpleStringProperty();
+    private final StringProperty visibility = new SimpleStringProperty();
 
     /**
      * Set the location id and create a new {@link WeatherParser} to get the data
@@ -31,10 +34,16 @@ public class WeatherData {
     public void getData() {
         Weather weather = wp.getWeather();
 
-        this.setCity(weather.name);
-        this.setCurrTemp(weather.main.temp + "°C");
+        this.setCity(weather.name + ", " + weather.sys.country);
+        this.setCurrTemp(Math.round(weather.main.temp) + "°C");
         this.setIconID(weather.weather.get(0).icon);
-        this.setDescription(weather.weather.get(0).description);
+        this.setDescription("Feels like " + Math.round(weather.main.feels_like) + "°C. " +
+                weather.weather.get(0).description);
+        System.out.println(weather.sys.sunrise);
+        this.setPressure("Pressure: " + Math.round(weather.main.pressure) + "hPa");
+        this.setHumidity("Humidity: " + Math.round(weather.main.humidity) + "%");
+        this.setVisibility("Visibility: " + weather.visibility/1000 + "km");
+
     }
 
     /**
@@ -100,6 +109,42 @@ public class WeatherData {
         this.description.set(description);
     }
 
+    public String getHumidity() {
+        return humidity.get();
+    }
+
+    public StringProperty humidityProperty() {
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity.set(humidity);
+    }
+
+    public String getPressure() {
+        return pressure.get();
+    }
+
+    public StringProperty pressureProperty() {
+        return pressure;
+    }
+
+    public void setPressure(String pressure) {
+        this.pressure.set(pressure);
+    }
+
+    public String getVisibility() {
+        return visibility.get();
+    }
+
+    public StringProperty visibilityProperty() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility.set(visibility);
+    }
+
     /**
      * The string representation of the data
      * @return a string representation of the data
@@ -109,6 +154,9 @@ public class WeatherData {
         return "City: " + getCity() + "\n" +
                 "Current Temperature: " + getCurrTemp() + "\n" +
                 "Icon ID:" + getIconID() + "\n" +
-                "Description: " + getDescription();
+                "Description: " + getDescription() + "\n" +
+                "Pressure: " + getPressure() + "\n" +
+                "Humidity: " + getHumidity() + "\n" +
+                "Visibility: " + getVisibility();
     }
 }

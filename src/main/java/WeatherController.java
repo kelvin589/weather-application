@@ -14,6 +14,9 @@ public class WeatherController {
     @FXML private TextField txtboxLocID;
     @FXML private Button btnRefresh;
     @FXML private ComboBox<String> cboxCities;
+    @FXML private Label lblHumidity;
+    @FXML private Label lblPressure;
+    @FXML private Label lblVisibility;
 
     private WeatherData model;
 
@@ -36,6 +39,9 @@ public class WeatherController {
         lblCity.textProperty().bindBidirectional(model.cityProperty());
         lblCurrentTemp.textProperty().bindBidirectional(model.currTempProperty());
         lblDescription.textProperty().bindBidirectional(model.descriptionProperty());
+        lblPressure.textProperty().bindBidirectional(model.pressureProperty());
+        lblHumidity.textProperty().bindBidirectional(model.humidityProperty());
+        lblVisibility.textProperty().bindBidirectional(model.visibilityProperty());
         imgviewIcon.setImage(new Image("http://openweathermap.org/img/w/" + model.getIconID() + ".png"));
 
         cboxCities.getItems().add("Birmingham");

@@ -18,7 +18,7 @@ public class Main extends Application {
 
         try {
             final FXMLLoader l = new FXMLLoader();
-            l.setLocation(getClass().getResource("/WeatherUI.fxml"));
+            l.setLocation(getClass().getResource("/fxml/WeatherUI.fxml"));
             l.setController(new WeatherController(wd));
             final Parent root = l.load();
             primaryStage.setTitle("Weather");
