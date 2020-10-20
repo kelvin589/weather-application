@@ -17,7 +17,7 @@
          <font>
             <Font size="40.0" />
          </font></Label>
-      <Label fx:id="lblDescription" layoutX="14.0" layoutY="77.0" text="Description" textFill="#9a5f10ba">
+      <Label fx:id="lblDescription" layoutX="14.0" layoutY="73.0" text="Description" textFill="#462d0cba">
          <font>
             <Font size="11.0" />
          </font></Label>
@@ -49,6 +49,6 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lblDateTime" layoutX="14.0" layoutY="14.0" text="Date, Time" textFill="#369bee" />
+      <Label fx:id="lblDateTime" layoutX="14.0" layoutY="14.0" text="Date, Time" textFill="#0e3d61" />
    </children>
 </AnchorPane>

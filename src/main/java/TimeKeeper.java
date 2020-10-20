@@ -1,6 +1,9 @@
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Keeps track of time
@@ -8,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class TimeKeeper {
     private static final DateTimeFormatter HH_MM = DateTimeFormatter.ofPattern("HH:mm");
     private static final DateTimeFormatter HH_MM_DD_MM = DateTimeFormatter.ofPattern("HH:mm, E dd MMMM");
+    private static final ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 
     /**
      * Get the string representation of an epoch time in the format HH:mm
@@ -28,5 +32,22 @@ public class TimeKeeper {
     public static String currentTime() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         return currentDateTime.format(HH_MM_DD_MM);
+    }
+
+    /**
+     * Execute a {@link Runnable} task every so often
+     * @param task the {@link Runnable} task
+     * @param initialDelay the initial delay in seconds
+     * @param period the time in seconds in which the task should execute periodically
+     */
+    public static void startRegularIntervals(Runnable task, int initialDelay, int period) {
+        ses.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Shutdown the {@link ScheduledExecutorService}
+     */
+    public static void shutdown() {
+        ses.shutdown();
     }
 }

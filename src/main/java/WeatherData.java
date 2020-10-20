@@ -1,7 +1,6 @@
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.sql.Time;
 
 /**
  * Acts as the model for the user interface
@@ -23,12 +22,15 @@ public class WeatherData {
     private final StringProperty currentDateTime = new SimpleStringProperty();
 
     /**
-     * Set the location id and create a new {@link WeatherParser} to get the data
+     * Set the location id and create a new {@link WeatherParser} to get the data. Populate the data.
+     * Refresh the current time every minute.
      * @param locationID the location id for the location of weather
      */
     public WeatherData(String locationID) {
         this.locationID = locationID;
         wp = new WeatherParser(API_KEY, locationID);
+        Runnable refreshTime = () -> this.setCurrentDateTime(TimeKeeper.currentTime());
+        TimeKeeper.startRegularIntervals(refreshTime, 0, 1);
         getData();
     }
 
@@ -44,13 +46,11 @@ public class WeatherData {
         this.setIconID(weather.weather.get(0).icon);
         this.setDescription("Feels like " + Math.round(weather.main.feels_like) + "°C. " +
                 weather.weather.get(0).description);
-        System.out.println(weather.sys.sunrise);
         this.setPressure("Pressure: " + Math.round(weather.main.pressure) + "hPa");
         this.setHumidity("Humidity: " + Math.round(weather.main.humidity) + "%");
         this.setVisibility("Visibility: " + weather.visibility/1000 + "km");
         this.setSunrise("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunrise, 0, weather.timezone));
         this.setSunset("Sunrise: " + TimeKeeper.epochToDateTime(weather.sys.sunset, 0, weather.timezone));
-        this.setCurrentDateTime(TimeKeeper.currentTime());
     }
 
     /**
@@ -184,8 +184,14 @@ public class WeatherData {
         return currentDateTime;
     }
 
+    /**
+     * Need to use {@link Platform#runLater(Runnable)} to run Runnable, at some some time in the future
+     * , on the JavaFX application thread when it has time. We need to do this so the GUI can update.
+     * @param currentDateTime the current time to set
+     */
     public void setCurrentDateTime(String currentDateTime) {
-        this.currentDateTime.set(currentDateTime);
+        Platform.runLater(() -> this.currentDateTime.set(currentDateTime));
+
     }
 
     /**

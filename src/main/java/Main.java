@@ -27,7 +27,15 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+
+    /**
+     * Override {@link Application#stop()} to shutdown the {@link java.util.concurrent.ScheduledExecutorService}
+     */
+    @Override
+    public void stop() {
+        TimeKeeper.shutdown();
     }
 
     public static void main(String[] args) {

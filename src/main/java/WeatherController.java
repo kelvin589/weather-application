@@ -35,10 +35,13 @@ public class WeatherController {
     /**
      * Initialise the components of the user interface by binding them to the properties in the model.
      * Add cities to the {@link ComboBox}. A listener is added to the combobox so that the location id is
-     * changed when the value of the combobox is changed. The model is refreshed to show this change.
+     * changed when the value of the combobox is changed. The model is refreshed every 10 minutes.
      */
     @FXML
     public void initialize() {
+        Runnable refreshModel = () -> model.getData();
+        TimeKeeper.startRegularIntervals(refreshModel, 0, 600);
+
         lblCity.textProperty().bindBidirectional(model.cityProperty());
         lblCurrentTemp.textProperty().bindBidirectional(model.currTempProperty());
         lblDescription.textProperty().bindBidirectional(model.descriptionProperty());
