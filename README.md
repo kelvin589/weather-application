@@ -13,6 +13,7 @@ This is a simple weather app created with Java and uses JavaFX for the user inte
 * A refresh button to retrieve the latest data from the API
 * A combobox containing some cities. 
   * The data in the UI is changed accordingly when a different city is selected
+* The application automatically updates the data every 10 minutes and the current time every minute
 
 There is a limiting factor imposed due to the tiers. For example, the free tier may not be suitable for widespread use of the application (depending on the number of users) as there is a limit to the number of API calls.
 
@@ -30,7 +31,7 @@ Some impovements that could be added:
  * Switching between 12h and 24h
 * Automatically detect location of the user
   * As well as setting a default city to display on opening the application
-* The application should automatically refresh
+* ~~The application should automatically refresh~~
   * However, this option may be fairly limited since the frequency of weather data updates depends on type of subscription you have (ranging from 10 minutes to 2 hours)
 
 ## Technologies
