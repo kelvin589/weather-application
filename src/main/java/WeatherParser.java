@@ -1,10 +1,12 @@
 import com.google.gson.Gson;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.net.URI;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Deserialise the JSON format received from the API into a {@link Weather} object.
@@ -32,15 +34,46 @@ public class WeatherParser {
 
     /**
      * Creates a new {@link URL} using the openweathermap url and the given parameters. {@link Gson} is used
-     * to deserialise the JSON data returned from the api, into a {@link Weather} object.
+     * to deserialise the JSON data returned from the api, into a {@link Weather} object. Returns null if
+     * it was not possible to retrieve data.
      * @return the {@link Weather} object containing data retrieved from the API
      */
     public Weather getWeather() {
-        //TODO: Check status codes
-        try (InputStream stream = new URL(openWeatherUrl + locationID + appID + metricUnit).openStream()){
-            Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+        try {
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(new URI(openWeatherUrl + locationID + appID + metricUnit))
+                    .timeout(Duration.ofSeconds(30))
+                    .GET()
+                    .build();
+            CompletableFuture<HttpResponse<String>> response = HttpClient.newBuilder()
+                    .build()
+                    .sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            int statusCode = response.thenApply(HttpResponse::statusCode).get();
+            if (statusCode >= 500) {
+                System.out.println("Server error - server failed to fulfill a valid request");
+                return null;
+            }
+            if (statusCode == 401) {
+                System.out.println("An error has occurred due to your API key.");
+                return null;
+            }
+            if (statusCode == 404) {
+                System.out.println("An error has occurred in your request.");
+                return null;
+            }
+            if (statusCode == 429) {
+                System.out.println("Upgrade your tier; You have made more than 60 API calls per minute.");
+                return null;
+            }
+            if (statusCode >= 400) {
+                System.out.println("Client sent an invalid request");
+                return null;
+            }
+
+            String result = response.thenApply(HttpResponse::body).get();
             Gson gson = new Gson();
-            return gson.fromJson(reader, Weather.class);
+            return gson.fromJson(result, Weather.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

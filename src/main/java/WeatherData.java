@@ -40,6 +40,10 @@ public class WeatherData {
      */
     public void getData() {
         Weather weather = wp.getWeather();
+        if (weather == null) {
+            System.out.println("An error has occurred during retrieval");
+            return;
+        }
 
         this.setCity(weather.name + ", " + weather.sys.country);
         this.setCurrTemp(Math.round(weather.main.temp) + "°C");
