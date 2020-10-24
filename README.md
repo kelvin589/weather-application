@@ -39,6 +39,7 @@ This project is created with:
 * Java 13.0.1
 * JavaFX 14
 * Maven
+* JUnit 5
 * Gson 2.8.6
 * OpenWeatherMap API
 
