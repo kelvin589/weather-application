@@ -87,4 +87,8 @@ public class WeatherParser {
     public void setLocationID(String id) {
         this.locationID = "?id=" + id;
     }
+
+    public String getLocationID() {
+        return this.locationID.substring(4);
+    }
 }
